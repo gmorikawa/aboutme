@@ -6,18 +6,32 @@ This project was thought to emulate the basic functions of [linktree](https://li
 Also, it is just a mock project for my personal portifolio. So you can clone it and use it as you like. Contact me if you have any issues or questions about it.
 
 ## Description
-In this application the user will register with a valid email, name and password.
-When sucessfully registered the user can do the following:
+A _user_ can create an account providing a valid email address and a unique username. Also a password need to be created in order to authenticate the user in the system. Only logged users can edit it's own information.
+Once the account is created the following data can be inserted into the system:
 
-* Upload a profile picture;
-* Add information about a social network;
-* Add contact information;
-* Add a self-description;
-* Edit or delete all profile's information.
+- name, that will be shown on profile page (optional, if not informed nickname will be shown instead);
+- nickname, that will be used as login information and for other people access the public profile page of that user;
+- email, necessary to verify account and recover password in case user forgot the password;
+- passsword, to login;
+- bio: a optional field, self short biography with a limited number of characters (limit yet not defined);
+- profile picture: a photo to be shown in profile;
+- sections: this will be a list of information that the user can add in the page connecting to other webpages, social media, email, etc; for each one of these a new section will be created.
 
+In his own page the user can edit each one of these information. The nickname and email can be edited as well as long as no other user share the same information.
 The personal profile will be visible to anyone accessing the /username endpoint at the website, but only the logged and owner user will be able to edit the displayed information.
-Social media, contact and description are sections in the profile. Everytime the user add new information he adds another section to the profile.
 If the user decides to end his account, all the information will be deleted from database.
+
+Then, a _user_ will be able to perform the following actions:
+
+- Create an account providing email, nickname and password;
+- Login in the system;
+- Upload a profile picture;
+- Add name, biography;
+- Edit all the information about the user;
+- Add, modify or delete all the sections;
+- Delete the profile;
+
+Someone who is not a _user_ is considered a _guest_. A _guest_
 
 ## Technologies
 * [expressjs](https://expressjs.com/): backend;
