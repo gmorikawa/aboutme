@@ -31,7 +31,7 @@ Then, a _user_ will be able to perform the following actions:
 - Add, modify or delete all the sections;
 - Delete the profile;
 
-Someone who is not a _user_ is considered a _guest_. A _guest_
+Someone who is not a _user_ is considered a _guest_. A guest can only see profiles, but are unable to edit any information.
 
 ## Technologies
 * [expressjs](https://expressjs.com/): backend;
