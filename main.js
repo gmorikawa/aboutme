@@ -8,6 +8,9 @@ const userRouter = require('./routes/user');
 // SERVER CONFIGS
 const port = 3000;
 
+// template engine
+app.set('view engine', 'ejs');
+
 // body-parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -16,7 +19,7 @@ app.use('/p', profileRouter);
 app.use('/u', userRouter);
 
 app.get('/', (req, res) => {
-    res.send('Hello world!');
+    res.render('index', { title: 'Home page' });
 });
 
 app.listen(port, () => {
