@@ -1,13 +1,29 @@
 const express = require('express');
 const router = express.Router();
 
+const userData = require('../models/user');
+
 // for creating new user
 router.post('/', (req, res) => {
-    res.send(req.body);
+    console.log(req.body);
+
+    let newUser = {
+        id: null,
+        fullname: req.body.fullname,
+        nickname: req.body.nickname,
+        email: req.body.email,
+        biography: req.body.biography,
+        sections: []
+    };
+
+    userData.push(newUser);
+
+    res.send('Succesfully registered!!!!!!!');
 });
 
 router.get('/:username', (req, res) => {
-    res.send(`${req.params.username}'s edit page!`);
+    const user = userData.find(x => x.nickname === req.params.username);
+    res.send(user);
 });
 
 router.post('/:username', (req, res) => {
