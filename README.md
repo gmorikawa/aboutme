@@ -33,6 +33,16 @@ Then, a _user_ will be able to perform the following actions:
 
 Someone who is not a _user_ is considered a _guest_. A guest can only see profiles, but are unable to edit any information.
 
+### Site navigation
+Home Page
+|-- Register new user
+|-- Login
+|   |-- Settings
+|   |-- Edit Information
+|-- User profile
+|   |-- Unknown profile
+|-- 404 error page
+
 ## Technologies
 * [expressjs](https://expressjs.com/): backend;
 * [ejs](https://ejs.co/): template rendering;
