@@ -4,27 +4,49 @@ const router = express.Router();
 const userData = require('../models/user');
 
 // for creating new user
-router.post('/', (req, res) => {
-    console.log(req.body);
+router.get('/register', (req, res) => {
+    res.render('user/register', { title: 'Register' });
+});
 
+router.post('/register', (req, res) => {
     let newUser = {
         id: null,
         fullname: req.body.fullname,
-        nickname: req.body.nickname,
+        username: req.body.username,
         email: req.body.email,
-        biography: req.body.biography,
+        password: req.body.password,
+        biography: '',
         sections: []
     };
 
     userData.save(newUser);
 
-    res.send('Succesfully registered!!!!!!!');
+    res.redirect('/u/login');
+});
+
+// authentication
+router.get('/login', (req, res) => {
+    res.render('user/login', { title: 'Login' });
+});
+
+router.post('/login', (req, res) => {
+    console.log(req.body);
+
+    const user = userData.getByUsername(req.body.username);
+    console.log('get user');
+
+    // bad authentication
+    if(user && user.password === req.body.password) {
+        res.redirect(`/u/${user.username}`);
+    } else {
+        res.render('not_found', { title: 'Error' });
+    }
 });
 
 router.get('/:username', (req, res) => {
-    const user = userData.query().find(x => x.nickname === req.params.username);
+    const user = userData.getByUsername(req.params.username);
     if(user)
-        res.render('user/profile', { title: `${user.nickname}'s profile`, user: user });
+        res.render('user/profile', { title: `${user.username}'s profile`, user: user });
     else
         res.render('not_found', { title: 'Not found'});
 });

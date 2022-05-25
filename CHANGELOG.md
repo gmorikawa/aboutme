@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.0.4] - 2022-05-25
+### Changed
+- changed _nickname_ to _username_;
+- filter for locate user by username inside __model/user.js__
+### Added
+- login page;
+- page navigation between home page to login, home page to register, and login to profile;
+- basic authentication (bad authentication);
+- password field for user model;
+
 ## [0.0.3] - 2022-05-24
 ### Changed
 - functions __query__ and __save__ in model;
