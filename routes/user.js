@@ -43,6 +43,11 @@ router.post('/login', (req, res) => {
     }
 });
 
+// edit page
+router.get('/:username/edit', (req, res) => {
+    res.render('user/edit', { title: 'Edit' });
+});
+
 router.get('/:username', (req, res) => {
     const user = userData.getByUsername(req.params.username);
     if(user)

@@ -1,3 +1,46 @@
 <%- include('../_partials/_head'); -%>
 
+<h1>Edit User</h1>
+
+<form method="post" action="/u/register">
+    <div>
+        <label for="fullname">Full name</label>
+        <input id="fullname" name="fullname" type="text">
+    </div>
+
+    <div>
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text">
+    </div>
+
+    <div>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email">
+    </div>
+
+    <div>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password">
+    </div>
+
+    <div>
+        <label for="biography">Biography</label>
+        <textarea id="biography" name="biography" type="text"></textarea>
+    </div>
+
+    <div>
+        <ul id="information">
+            
+        </ul>
+
+        <button id="addInformation" type="button">Add information</button>
+    </div>
+
+    <button type="submit">Edit</button>
+</form>
+
+<button type="button">Delete profile</button>
+
+<script src="/js/editUser.js"></script>
+
 <%- include('../_partials/_foot'); -%>

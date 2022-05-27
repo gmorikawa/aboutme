@@ -11,6 +11,9 @@ const port = 3000;
 // template engine
 app.set('view engine', 'ejs');
 
+// serve static files
+app.use(express.static('public'));
+
 // body-parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

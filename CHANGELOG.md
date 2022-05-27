@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.0.4] - 2022-05-27
+### Changed
+### Added
+- serving static files through _public_ folder;
+
 ## [0.0.4] - 2022-05-25
 ### Changed
 - changed _nickname_ to _username_;
