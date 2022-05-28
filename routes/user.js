@@ -10,7 +10,6 @@ router.get('/register', (req, res) => {
 
 router.post('/register', (req, res) => {
     let newUser = {
-        id: null,
         fullname: req.body.fullname,
         username: req.body.username,
         email: req.body.email,
@@ -19,9 +18,8 @@ router.post('/register', (req, res) => {
         sections: []
     };
 
-    userData.save(newUser);
-
-    res.redirect('/u/login');
+    userData.insert(newUser)
+        .then(() => res.redirect('/u/login'));
 });
 
 // authentication
@@ -45,15 +43,21 @@ router.post('/login', (req, res) => {
 
 // edit page
 router.get('/:username/edit', (req, res) => {
-    res.render('user/edit', { title: 'Edit' });
+    userData.getByUsername(req.params.username)
+        .then(user => {
+            res.render('user/edit', { title: 'Edit', user: user });
+        });
 });
 
 router.get('/:username', (req, res) => {
-    const user = userData.getByUsername(req.params.username);
-    if(user)
-        res.render('user/profile', { title: `${user.username}'s profile`, user: user });
-    else
-        res.render('not_found', { title: 'Not found'});
+    userData.getByUsername(req.params.username)
+        .then(user => {
+            res.render('user/profile', { title: `${user.username}'s profile`, user: user });    
+        });
+    // if(user)
+    //     res.render('user/profile', { title: `${user.username}'s profile`, user: user });
+    // else
+    //     res.render('not_found', { title: 'Not found'});
 });
 
 router.post('/:username', (req, res) => {
@@ -62,12 +66,22 @@ router.post('/:username', (req, res) => {
 });
 
 router.put('/:username', (req, res) => {
-    console.log(req.body);
+    let editUser = {
+        fullname: req.body.fullname,
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        biography: req.body.biography,
+        sections: req.body.sections
+    };
+
+    userData.update(editUser);
+    
     res.send(`${req.params.username} put`);
 });
 
 router.delete('/:username', (req, res) => {
-    res.send(`${req.params.username} delete`);
+    userData.remove(req.params.username).then(() => res.send(`${req.params.username} delete`));
 });
 
 module.exports = router;

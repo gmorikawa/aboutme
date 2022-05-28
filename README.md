@@ -52,3 +52,10 @@ Home Page
 
 ### Development dependencies
 * [nodemon](https://nodemon.io/): web server that restarts automatically when any project file is changed;
+
+## Issues
+I had an problem while trying to run mongodb service on linux.
+The service could not be started. The reason was that some configuration files that are used by mongodb hadn't the right permissions.
+As a result, mongodb couldn't access the configuration files leading to a failure in starting the service.
+https://askubuntu.com/questions/823288/mongodb-loads-but-breaks-returning-status-14
+https://hevodata.com/blog/install-mongodb-on-ubuntu/

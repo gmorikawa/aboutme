@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [0.0.4] - 2022-05-27
 ### Changed
+- __model/user.js__ using database.js functions;
+### Added
+- connection to mongodb service;
+- __service/database.js__ for handling connection to mongodb;
+- insert, read and delete operations on User's collection;
+
+## [0.0.4] - 2022-05-27d
 ### Added
 - serving static files through _public_ folder;
 

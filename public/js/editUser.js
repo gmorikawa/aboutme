@@ -21,3 +21,20 @@ function createNewInformation() {
 
     infoList.appendChild(li);
 }
+
+function deleteUser(username) {
+    fetch(`/u/${username}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-type': 'application/json'
+        }
+    })
+    .then(res => {
+        if (res.ok) {
+            console.log("HTTP request successful");
+        } else {
+            console.log("HTTP request unsuccessful");
+        }
+        return res;
+    })
+}

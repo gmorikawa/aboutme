@@ -2,7 +2,7 @@
 
 <h1>Edit User</h1>
 
-<form method="post" action="/u/register">
+<form method="post" action="/u/edit">
     <div>
         <label for="fullname">Full name</label>
         <input id="fullname" name="fullname" type="text">
@@ -39,7 +39,7 @@
     <button type="submit">Edit</button>
 </form>
 
-<button type="button">Delete profile</button>
+<button type="button" onclick="deleteUser('<%= user.username %>')">Delete profile</button>
 
 <script src="/js/editUser.js"></script>
 
