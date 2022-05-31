@@ -59,3 +59,5 @@ The service could not be started. The reason was that some configuration files t
 As a result, mongodb couldn't access the configuration files leading to a failure in starting the service.
 https://askubuntu.com/questions/823288/mongodb-loads-but-breaks-returning-status-14
 https://hevodata.com/blog/install-mongodb-on-ubuntu/
+
+mongo -u admin -p admin --authenticationDatabase admin

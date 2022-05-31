@@ -29,12 +29,12 @@ function deleteUser(username) {
             'Content-type': 'application/json'
         }
     })
-    .then(res => {
-        if (res.ok) {
-            console.log("HTTP request successful");
-        } else {
-            console.log("HTTP request unsuccessful");
-        }
-        return res;
-    })
+        .then(res => {
+            if (res.ok) {
+                console.log("HTTP request successful");
+            } else {
+                console.log("HTTP request unsuccessful");
+            }
+            return res;
+        });
 }

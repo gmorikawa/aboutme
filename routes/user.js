@@ -30,19 +30,20 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res) => {
     console.log(req.body);
 
-    const user = userData.getByUsername(req.body.username);
-    console.log('get user');
-
-    // bad authentication
-    if(user && user.password === req.body.password) {
-        res.redirect(`/u/${user.username}`);
-    } else {
-        res.render('not_found', { title: 'Error' });
-    }
+    userData.getByUsername(req.body.username)
+        .then(user => {
+            // bad authentication
+            if(user && user.password === req.body.password) {
+                res.redirect(`/u/${user.username}`);
+            } else {
+                res.render('not_found', { title: 'Error' });
+            }
+        });
 });
 
 // edit page
 router.get('/:username/edit', (req, res) => {
+    // needs to verify if the username is registered and is logged in system
     userData.getByUsername(req.params.username)
         .then(user => {
             res.render('user/edit', { title: 'Edit', user: user });
@@ -81,7 +82,8 @@ router.put('/:username', (req, res) => {
 });
 
 router.delete('/:username', (req, res) => {
-    userData.remove(req.params.username).then(() => res.send(`${req.params.username} delete`));
+    userData.remove(req.params.username)
+        .then(() => res.send(`${req.params.username} delete`));
 });
 
 module.exports = router;

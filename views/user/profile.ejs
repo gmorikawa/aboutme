@@ -1,10 +1,18 @@
 <%- include('../_partials/_head'); -%>
 
-<ol>
-    <li>Full name: <%= user.fullname %></li>
-    <li>Username: <%= user.username %></li>
-    <li>Email: <%= user.email %></li>
-    <li>Biography: <%= user.biography %></li>
-</ol>
+<section id="user-section">
+    <header>
+        <h2><%= user.fullname %></h2>
+        <h3><%= user.username %></h3>
+
+        <p><%= user.email %></p>
+        <p><%= user.biography %></p>
+
+        <a href="/u/<%= user.username %>/edit">Edit Info</a>
+    </header>
+
+    <main>
+    </main>
+</section>
 
 <%- include('../_partials/_foot'); -%>
