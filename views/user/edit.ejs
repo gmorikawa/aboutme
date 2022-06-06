@@ -2,7 +2,7 @@
 
 <h1>Edit User</h1>
 
-<form method="post" action="/u/edit">
+<form>
     <div>
         <label for="fullname">Full name</label>
         <input id="fullname" name="fullname" type="text" value="<%= user.fullname %>">
@@ -29,18 +29,93 @@
     </div>
 
     <div>
-        <ul id="information">
+        <ul id="sections">
             
         </ul>
 
-        <button id="addInformation" type="button">Add information</button>
+        <button id="addSection" type="button">Add information</button>
     </div>
 
-    <button type="submit">Edit</button>
+    <button type="button" onclick="editUser('<%= user.username %>')">Edit</button>
 </form>
 
 <button type="button" onclick="deleteUser('<%= user.username %>')">Delete profile</button>
 
-<script src="/js/editUser.js"></script>
+<script>
+    window.onload = function() {
+        const btnSubmit = document.getElementById('addSection');
+        btnSubmit.onclick = createNewSection;
+    };
+
+    function editUser(username) {
+        const url = `/u/${username}`
+        const data = {
+            fullname: document.getElementById('fullname').value,
+            username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+            biography: document.getElementById('biography').value,
+            sections: (() => {
+                let sections = [];
+                let sectionsElmt = document.getElementById('sections');
+                for(let i = 0; i < sectionsElmt.children.length; i++) {
+                    const sectionData = sectionsElmt.children[i].children[0];
+                    sections.push({
+                        description: sectionData.children[0].value,
+                        link: sectionData.children[1].value
+                    });
+                }
+
+                return sections;
+            })()
+        };
+
+        const req = fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        req.then(res => console.log(res));
+    }
+
+    function createNewSection() {
+        const infoList = document.getElementById('sections');
+
+        const li = document.createElement('li');
+
+        const inputDescription = document.createElement('input');
+        inputDescription.type = 'text';
+        const inputLink = document.createElement('input');
+        inputLink.type = 'text';
+
+        const div = document.createElement('div');
+        div.appendChild(inputDescription);
+        div.appendChild(inputLink);
+
+        li.appendChild(div);
+
+        infoList.appendChild(li);
+    }
+
+    function deleteUser(username) {
+        fetch(`/u/${username}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+            .then(res => {
+                if (res.ok) {
+                    console.log("HTTP request successful");
+                } else {
+                    console.log("HTTP request unsuccessful");
+                }
+                return res;
+            });
+    }
+</script>
 
 <%- include('../_partials/_foot'); -%>

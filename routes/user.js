@@ -67,16 +67,18 @@ router.post('/:username', (req, res) => {
 });
 
 router.put('/:username', (req, res) => {
-    let editUser = {
-        fullname: req.body.fullname,
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-        biography: req.body.biography,
-        sections: req.body.sections
-    };
+    console.log(req.body);
 
-    userData.update(editUser);
+    // let editUser = {
+    //     fullname: req.body.fullname,
+    //     username: req.body.username,
+    //     email: req.body.email,
+    //     password: req.body.password,
+    //     biography: req.body.biography,
+    //     sections: req.body.sections
+    // };
+
+    // userData.update(editUser);
     
     res.send(`${req.params.username} put`);
 });
