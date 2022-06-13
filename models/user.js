@@ -18,17 +18,19 @@ async function getByUsername(username) {
 }
 
 async function insert(data) {
+    // a cryptography must be applied to password before inserting into table
     const collection = await database.open(collectionName);
     collection.insertOne(data).then(() => database.close());
 }
 
-function update(data) {
-
+async function update(username, data) {
+    const collection = await database.open(collectionName);
+    collection.updateOne({ username: username }, { $set: data }).then(() => database.close());
 }
 
 async function remove(username) {
     const collection = await database.open(collectionName);
-    await collection.deleteOne({ username: username });
+    collection.deleteOne({ username: username }).then(() => database.close());
 }
 
 module.exports = {

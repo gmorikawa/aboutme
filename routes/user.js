@@ -44,6 +44,7 @@ router.post('/login', (req, res) => {
 // edit page
 router.get('/:username/edit', (req, res) => {
     // needs to verify if the username is registered and is logged in system
+    // password must not be sent to the user
     userData.getByUsername(req.params.username)
         .then(user => {
             res.render('user/edit', { title: 'Edit', user: user });
@@ -62,25 +63,26 @@ router.get('/:username', (req, res) => {
 });
 
 router.post('/:username', (req, res) => {
-    console.log(req.body);
+    console.log("cheguei aqui");
     res.send(`${req.params.username} post`);
 });
 
 router.put('/:username', (req, res) => {
     console.log(req.body);
 
-    // let editUser = {
-    //     fullname: req.body.fullname,
-    //     username: req.body.username,
-    //     email: req.body.email,
-    //     password: req.body.password,
-    //     biography: req.body.biography,
-    //     sections: req.body.sections
-    // };
+    // modify password needs to be done separately
 
-    // userData.update(editUser);
-    
-    res.send(`${req.params.username} put`);
+    let editUser = {
+        fullname: req.body.fullname,
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        biography: req.body.biography,
+        sections: req.body.sections
+    };
+
+    userData.update(req.body.idUsername, editUser)
+        .then(() => { console.log('redirecting...'); res.redirect(`/u/${editUser.username}`); });
 });
 
 router.delete('/:username', (req, res) => {

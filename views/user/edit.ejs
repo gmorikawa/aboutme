@@ -3,6 +3,7 @@
 <h1>Edit User</h1>
 
 <form>
+    <input id="idUsername" type="text" value="<%= user.username %>" hidden>
     <div>
         <label for="fullname">Full name</label>
         <input id="fullname" name="fullname" type="text" value="<%= user.fullname %>">
@@ -20,7 +21,7 @@
 
     <div>
         <label for="password">Password</label>
-        <input id="password" name="password" type="password">
+        <input id="password" name="password" type="password" value="<%= user.password %>">
     </div>
 
     <div>
@@ -30,7 +31,15 @@
 
     <div>
         <ul id="sections">
-            
+            <% user.sections.forEach(u => { %>
+                <li>
+                    <div>
+                        <input type="text" value="<%= u.description %>">
+                        <input type="text" value="<%= u.link %>">
+                        <button type="button" onclick="removeSection(this)">X</button>
+                    </div>
+                </li>
+            <% }); %>
         </ul>
 
         <button id="addSection" type="button">Add information</button>
@@ -47,9 +56,34 @@
         btnSubmit.onclick = createNewSection;
     };
 
+    function createNewSection() {
+        const infoList = document.getElementById('sections');
+
+        const li = document.createElement('li');
+
+        const inputDescription = document.createElement('input');
+        inputDescription.type = 'text';
+        const inputLink = document.createElement('input');
+        inputLink.type = 'text';
+        const deleteButton = document.createElement('button');
+        deleteButton.onclick = () => removeSection(deleteButton);
+        deleteButton.type = 'button';
+        deleteButton.innerHTML = 'X';
+
+        const div = document.createElement('div');
+        div.appendChild(inputDescription);
+        div.appendChild(inputLink);
+        div.appendChild(deleteButton);
+
+        li.appendChild(div);
+
+        infoList.appendChild(li);
+    }
+
     function editUser(username) {
         const url = `/u/${username}`
         const data = {
+            idUsername: document.getElementById('idUsername').value,
             fullname: document.getElementById('fullname').value,
             username: document.getElementById('username').value,
             email: document.getElementById('email').value,
@@ -57,9 +91,9 @@
             biography: document.getElementById('biography').value,
             sections: (() => {
                 let sections = [];
-                let sectionsElmt = document.getElementById('sections');
-                for(let i = 0; i < sectionsElmt.children.length; i++) {
-                    const sectionData = sectionsElmt.children[i].children[0];
+                let sectionsElement = document.getElementById('sections');
+                for(let i = 0; i < sectionsElement.children.length; i++) {
+                    const sectionData = sectionsElement.children[i].children[0];
                     sections.push({
                         description: sectionData.children[0].value,
                         link: sectionData.children[1].value
@@ -77,44 +111,28 @@
             },
             body: JSON.stringify(data)
         });
-
-        req.then(res => console.log(res));
-    }
-
-    function createNewSection() {
-        const infoList = document.getElementById('sections');
-
-        const li = document.createElement('li');
-
-        const inputDescription = document.createElement('input');
-        inputDescription.type = 'text';
-        const inputLink = document.createElement('input');
-        inputLink.type = 'text';
-
-        const div = document.createElement('div');
-        div.appendChild(inputDescription);
-        div.appendChild(inputLink);
-
-        li.appendChild(div);
-
-        infoList.appendChild(li);
     }
 
     function deleteUser(username) {
-        fetch(`/u/${username}`, {
+        const req = fetch(`/u/${username}`, {
             method: 'DELETE',
             headers: {
                 'Content-type': 'application/json'
             }
-        })
-            .then(res => {
-                if (res.ok) {
-                    console.log("HTTP request successful");
-                } else {
-                    console.log("HTTP request unsuccessful");
-                }
-                return res;
-            });
+        });
+
+        req.then(res => {
+            if (res.ok) {
+                console.log("HTTP request successful");
+            } else {
+                console.log("HTTP request unsuccessful");
+            }
+            return res;
+        });
+    }
+
+    function removeSection(element) {
+        element.parentElement.parentElement.remove();
     }
 </script>
 
